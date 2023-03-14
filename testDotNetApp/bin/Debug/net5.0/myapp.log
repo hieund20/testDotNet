@@ -24,3 +24,15 @@
 2023-03-14 12:00:41,877 [1] INFO Microsoft.Hosting.Lifetime - Content root path: D:\.Net\testDotNetApp\testDotNetApp
 2023-03-14 12:01:11,255 [4] DEBUG testDotNetApp.Controllers.TrxMessageController - Request body: {"PartnerKey":"FAKEGOOGLE","PartnerRefNo":"FG-00001","TotalAmount":8,"Timestamp":null,"Items":[{"PartnerItemRef":"i-00001","Name":"Pen","Qty":2,"UnitPrice":2},{"PartnerItemRef":"i-00002","Name":"Pen","Qty":2,"UnitPrice":2}],"Sig":"24XYSmvKGH9I9Y5FLvSsId2MPtjkvog7U5JLhE3m30A=","PartnerPassword":"FAKEPASSWORD1234"}
 2023-03-14 12:01:11,257 [4] DEBUG testDotNetApp.Controllers.TrxMessageController - Response body: { result = 1, resultmessage = Request data is valid. }
+2023-03-14 14:55:46,469 [1] INFO Microsoft.Hosting.Lifetime - Now listening on: https://localhost:5001
+2023-03-14 14:55:46,482 [1] INFO Microsoft.Hosting.Lifetime - Now listening on: http://localhost:5000
+2023-03-14 14:55:46,483 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2023-03-14 14:55:46,484 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2023-03-14 14:55:46,484 [1] INFO Microsoft.Hosting.Lifetime - Content root path: D:\.Net\testDotNetApp\testDotNetApp
+2023-03-14 14:57:33,446 [1] INFO Microsoft.Hosting.Lifetime - Now listening on: https://localhost:5001
+2023-03-14 14:57:33,455 [1] INFO Microsoft.Hosting.Lifetime - Now listening on: http://localhost:5000
+2023-03-14 14:57:33,455 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2023-03-14 14:57:33,455 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2023-03-14 14:57:33,455 [1] INFO Microsoft.Hosting.Lifetime - Content root path: D:\.Net\testDotNetApp\testDotNetApp
+2023-03-14 14:57:50,196 [7] DEBUG testDotNetApp.Controllers.TrxMessageController - Request body: {"PartnerKey":"FAKEGOOGLE","PartnerRefNo":"FG-00001","TotalAmount":8,"Timestamp":null,"Items":[{"PartnerItemRef":"i-00001","Name":"Pen","Qty":2,"UnitPrice":2},{"PartnerItemRef":"i-00002","Name":"Pen","Qty":2,"UnitPrice":2}],"Sig":"24XYSmvKGH9I9Y5FLvSsId2MPtjkvog7U5JLhE3m30A=","PartnerPassword":"FAKEPASSWORD1234"}
+2023-03-14 14:57:50,199 [7] DEBUG testDotNetApp.Controllers.TrxMessageController - Response body: { result = 1, resultmessage = Request data is valid. }
