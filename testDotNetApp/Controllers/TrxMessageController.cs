@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace testDotNetApp.Controllers
     public class TrxMessageController : ControllerBase
     {
         private readonly ILogger<TrxMessageController> _logger;
+        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(TrxMessageController));
 
         public TrxMessageController(ILogger<TrxMessageController> logger)
         {
@@ -23,31 +25,40 @@ namespace testDotNetApp.Controllers
         [Route("submittrxmessage")]
         public IActionResult SubmitTrxMessage([FromBody] TrxMessage trxMessage)
         {
+            // log4net saved the request body
+            _log.Debug($"Request body: {JsonConvert.SerializeObject(trxMessage)}");
+
             // Check if the partner is allowed and the password is correct
             if (!IsPartnerAllowed(trxMessage.PartnerKey, trxMessage.PartnerPassword))
             {
+                _log.Debug($"Response body: {new { result = 0, resultmessage = "Access Denied!" }}");
                 return BadRequest(new { result = 0, resultmessage = "Access Denied!" });
             }
 
             // Check if the mandatory parameter is not provided
             if (string.IsNullOrWhiteSpace(trxMessage.PartnerKey))
             {
+                _log.Debug($"Response body: {new { result = 0, resultmessage = "PartnerKey is Required." }}");
                 return BadRequest(new { result = 0, resultmessage = "PartnerKey is Required." });
             }
             if (string.IsNullOrWhiteSpace(trxMessage.PartnerRefNo))
             {
+                _log.Debug($"Response body: {new { result = 0, resultmessage = "PartnerRefNo is Required." }}");
                 return BadRequest(new { result = 0, resultmessage = "PartnerRefNo is Required." });
             }
             if (string.IsNullOrWhiteSpace(trxMessage.Sig))
             {
+                _log.Debug($"Response body: {new { result = 0, resultmessage = "Sig is Required." }}");
                 return BadRequest(new { result = 0, resultmessage = "Sig is Required." });
             }
             if (string.IsNullOrWhiteSpace(trxMessage.PartnerPassword))
             {
+                _log.Debug($"Response body: {new { result = 0, resultmessage = "PartnerPassword is Required." }}");
                 return BadRequest(new { result = 0, resultmessage = "PartnerPassword is Required." });
             }
             if (trxMessage.TotalAmount == null)
             {
+                _log.Debug($"Response body: {new { result = 0, resultmessage = "TotalAmount is Required." }}");
                 return BadRequest(new { result = 0, resultmessage = "TotalAmount is Required." });
             }
 
@@ -60,16 +71,19 @@ namespace testDotNetApp.Controllers
                     // Check if the mandatory parameter is not provided
                     if (item.Qty == null)
                     {
+                        _log.Debug($"Response body: {new { result = 0, resultmessage = "Qty is Required." }}");
                         return BadRequest(new { result = 0, resultmessage = "Qty is Required." });
                     }
                     if (item.UnitPrice == null)
                     {
+                        _log.Debug($"Response body: {new { result = 0, resultmessage = "UnitPrice is Required." }}");
                         return BadRequest(new { result = 0, resultmessage = "UnitPrice is Required." });
                     }
 
                     // Check if the item price is valid
                     if (item.Qty <= 0 || item.Qty > 5 || item.UnitPrice <= 0)
                     {
+                        _log.Debug($"Response body: {new { result = 0, resultmessage = "Invalid Total Amount." }}");
                         return BadRequest(new { result = 0, resultmessage = "Invalid Total Amount." });
                     }
 
@@ -77,6 +91,7 @@ namespace testDotNetApp.Controllers
                 }
                 if (trxMessage.TotalAmount != sum)
                 {
+                    _log.Debug($"Response body: {new { result = 0, resultmessage = "Invalid Total Amount." }}");
                     return BadRequest(new { result = 0, resultmessage = "Invalid Total Amount." });
                 }
             }
@@ -90,9 +105,11 @@ namespace testDotNetApp.Controllers
             }
             if (requestTime < serverTime.AddMinutes(-5) || requestTime > serverTime.AddMinutes(5))
             {
+                _log.Debug($"Response body: {new { result = 0, resultmessage = "Expired." }}");
                 return BadRequest(new { result = 0, resultmessage = "Expired." });
             }
 
+            _log.Debug($"Response body: {new { result = 1, resultmessage = "Request data is valid." }}");
             return Ok(new { result = 1, resultmessage = "Request data is valid." });
         }
 

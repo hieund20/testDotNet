@@ -1,0 +1,26 @@
+2023-03-14 11:46:08,536 [1] INFO Microsoft.Hosting.Lifetime - Now listening on: https://localhost:5001
+2023-03-14 11:46:08,552 [1] INFO Microsoft.Hosting.Lifetime - Now listening on: http://localhost:5000
+2023-03-14 11:46:08,552 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2023-03-14 11:46:08,552 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2023-03-14 11:46:08,552 [1] INFO Microsoft.Hosting.Lifetime - Content root path: D:\.Net\testDotNetApp\testDotNetApp
+2023-03-14 11:46:26,815 [4] DEBUG testDotNetApp.Controllers.TrxMessageController - Request body: testDotNetApp.Models.TrxMessage
+2023-03-14 11:50:58,130 [1] INFO Microsoft.Hosting.Lifetime - Now listening on: https://localhost:5001
+2023-03-14 11:50:58,140 [1] INFO Microsoft.Hosting.Lifetime - Now listening on: http://localhost:5000
+2023-03-14 11:50:58,140 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2023-03-14 11:50:58,140 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2023-03-14 11:50:58,140 [1] INFO Microsoft.Hosting.Lifetime - Content root path: D:\.Net\testDotNetApp\testDotNetApp
+2023-03-14 11:51:16,075 [7] DEBUG testDotNetApp.Controllers.TrxMessageController - Request body: {"PartnerKey":"FAKEGOOGLE","PartnerRefNo":"FG-00001","TotalAmount":8,"Timestamp":"2013-11-22T02:11:22.0000000Z","Items":[{"PartnerItemRef":"i-00001","Name":"Pen","Qty":2,"UnitPrice":2},{"PartnerItemRef":"i-00002","Name":"Pen","Qty":2,"UnitPrice":2}],"Sig":"24XYSmvKGH9I9Y5FLvSsId2MPtjkvog7U5JLhE3m30A=","PartnerPassword":"FAKEPASSWORD1234"}
+2023-03-14 11:55:39,033 [1] INFO Microsoft.Hosting.Lifetime - Now listening on: https://localhost:5001
+2023-03-14 11:55:39,057 [1] INFO Microsoft.Hosting.Lifetime - Now listening on: http://localhost:5000
+2023-03-14 11:55:39,059 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2023-03-14 11:55:39,060 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2023-03-14 11:55:39,060 [1] INFO Microsoft.Hosting.Lifetime - Content root path: D:\.Net\testDotNetApp\testDotNetApp
+2023-03-14 11:56:04,640 [8] DEBUG testDotNetApp.Controllers.TrxMessageController - Request body: {"PartnerKey":"FAKEGOOGLE","PartnerRefNo":"FG-00001","TotalAmount":8,"Timestamp":"2013-11-22T02:11:22.0000000Z","Items":[{"PartnerItemRef":"i-00001","Name":"Pen","Qty":2,"UnitPrice":2},{"PartnerItemRef":"i-00002","Name":"Pen","Qty":2,"UnitPrice":2}],"Sig":"24XYSmvKGH9I9Y5FLvSsId2MPtjkvog7U5JLhE3m30A=","PartnerPassword":"FAKEPASSWORD1235"}
+2023-03-14 11:56:04,641 [8] DEBUG testDotNetApp.Controllers.TrxMessageController - Response body: { result = 0, resultmessage = Access Denied! }
+2023-03-14 12:00:41,863 [1] INFO Microsoft.Hosting.Lifetime - Now listening on: https://localhost:5001
+2023-03-14 12:00:41,877 [1] INFO Microsoft.Hosting.Lifetime - Now listening on: http://localhost:5000
+2023-03-14 12:00:41,877 [1] INFO Microsoft.Hosting.Lifetime - Application started. Press Ctrl+C to shut down.
+2023-03-14 12:00:41,877 [1] INFO Microsoft.Hosting.Lifetime - Hosting environment: Development
+2023-03-14 12:00:41,877 [1] INFO Microsoft.Hosting.Lifetime - Content root path: D:\.Net\testDotNetApp\testDotNetApp
+2023-03-14 12:01:11,255 [4] DEBUG testDotNetApp.Controllers.TrxMessageController - Request body: {"PartnerKey":"FAKEGOOGLE","PartnerRefNo":"FG-00001","TotalAmount":8,"Timestamp":null,"Items":[{"PartnerItemRef":"i-00001","Name":"Pen","Qty":2,"UnitPrice":2},{"PartnerItemRef":"i-00002","Name":"Pen","Qty":2,"UnitPrice":2}],"Sig":"24XYSmvKGH9I9Y5FLvSsId2MPtjkvog7U5JLhE3m30A=","PartnerPassword":"FAKEPASSWORD1234"}
+2023-03-14 12:01:11,257 [4] DEBUG testDotNetApp.Controllers.TrxMessageController - Response body: { result = 1, resultmessage = Request data is valid. }
