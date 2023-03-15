@@ -44,7 +44,7 @@ namespace testDotNetApp.Controllers
                 var propName = prop.Name;
                 var propValue = prop.GetValue(trxMessage, null);
 
-                if (propName == "Timestamp") break;
+                if (propName == "Timestamp") continue;
                 if (propValue == null)
                 {
                     _log.Debug($"Response body: {new { result = 0, resultmessage = $"{propName} is Required." }}");
