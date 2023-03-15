@@ -160,5 +160,33 @@ namespace unitTesst
             Assert.AreEqual(0, badRequestResult.Value.GetType().GetProperty("result").GetValue(badRequestResult.Value));
             Assert.AreEqual("Expired.", badRequestResult.Value.GetType().GetProperty("resultmessage").GetValue(badRequestResult.Value));
         }
+
+        [Test]
+        public void SubmitTrxMessage_WithSigInvalid_ReturnsBadRequest()
+        {
+            // Arrange
+            var trxMessage = new TrxMessage
+            {
+                PartnerKey = "FAKEGOOGLE",
+                PartnerPassword = "FAKEPASSWORD1234",
+                PartnerRefNo = "FG-00001",
+                Sig = "24XYSmvKGH9I9Y5FLvSsId2MPtjkvog7U5JLhE3m30A=",
+                TotalAmount = 8,
+                Items = new[]
+                {
+                    new ItemDetail { PartnerItemRef = "i-00001", Name = "Pen 1", Qty = 2, UnitPrice = 2 },
+                    new ItemDetail { PartnerItemRef = "i-00002", Name = "Pen 2", Qty = 2, UnitPrice = 2 },
+                }
+            };
+
+            // Act
+            var result = _controller.SubmitTrxMessage(trxMessage);
+
+            // Assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = (BadRequestObjectResult)result;
+            Assert.AreEqual(0, badRequestResult.Value.GetType().GetProperty("result").GetValue(badRequestResult.Value));
+            Assert.AreEqual("Access Denied!, Sig is invalid.", badRequestResult.Value.GetType().GetProperty("resultmessage").GetValue(badRequestResult.Value));
+        }
     }
 }

@@ -38,3 +38,5 @@ D:\.Net\testDotNetApp\testDotNetApp\obj\Debug\net5.0\testDotNetApp.pdb
 D:\.Net\testDotNetApp\testDotNetApp\obj\Debug\net5.0\testDotNetApp.genruntimeconfig.cache
 D:\.Net\testDotNetApp\testDotNetApp\obj\Debug\net5.0\ref\testDotNetApp.dll
 D:\.Net\testDotNetApp\testDotNetApp\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\.Net\testDotNetApp\testDotNetApp\bin\Debug\net5.0\Microsoft.Practices.ServiceLocation.dll
+D:\.Net\testDotNetApp\testDotNetApp\bin\Debug\net5.0\XAct.Core.PCL.dll

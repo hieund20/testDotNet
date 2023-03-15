@@ -120,3 +120,5 @@ D:\.Net\testDotNetApp\unitTesst\obj\Debug\net5.0\refint\unitTesst.dll
 D:\.Net\testDotNetApp\unitTesst\obj\Debug\net5.0\unitTesst.pdb
 D:\.Net\testDotNetApp\unitTesst\obj\Debug\net5.0\unitTesst.genruntimeconfig.cache
 D:\.Net\testDotNetApp\unitTesst\obj\Debug\net5.0\ref\unitTesst.dll
+D:\.Net\testDotNetApp\unitTesst\bin\Debug\net5.0\Microsoft.Practices.ServiceLocation.dll
+D:\.Net\testDotNetApp\unitTesst\bin\Debug\net5.0\XAct.Core.PCL.dll

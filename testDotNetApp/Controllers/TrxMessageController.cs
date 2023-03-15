@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using testDotNetApp.Models;
+using testDotNetApp.Helpers;
+using System.Globalization;
 
 namespace testDotNetApp.Controllers
 {
@@ -15,6 +17,7 @@ namespace testDotNetApp.Controllers
     {
         private readonly ILogger<TrxMessageController> _logger;
         private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(TrxMessageController));
+        HelpersConfig helpers = new HelpersConfig();
 
         public TrxMessageController(ILogger<TrxMessageController> logger)
         {
@@ -29,37 +32,31 @@ namespace testDotNetApp.Controllers
             _log.Debug($"Request body: {JsonConvert.SerializeObject(trxMessage)}");
 
             // Check if the partner is allowed and the password is correct
-            if (!IsPartnerAllowed(trxMessage.PartnerKey, trxMessage.PartnerPassword))
+            if (!helpers.IsPartnerAllowed(trxMessage.PartnerKey, trxMessage.PartnerPassword))
             {
                 _log.Debug($"Response body: {new { result = 0, resultmessage = "Access Denied!" }}");
                 return BadRequest(new { result = 0, resultmessage = "Access Denied!" });
             }
 
             // Check if the mandatory parameter is not provided
-            if (string.IsNullOrWhiteSpace(trxMessage.PartnerKey))
+            foreach (var prop in trxMessage.GetType().GetProperties())
             {
-                _log.Debug($"Response body: {new { result = 0, resultmessage = "PartnerKey is Required." }}");
-                return BadRequest(new { result = 0, resultmessage = "PartnerKey is Required." });
-            }
-            if (string.IsNullOrWhiteSpace(trxMessage.PartnerRefNo))
+                var propName = prop.Name;
+                var propValue = prop.GetValue(trxMessage, null);
+
+                if (propName == "Timestamp") break;
+                if (propValue == null)
+                {
+                    _log.Debug($"Response body: {new { result = 0, resultmessage = $"{propName} is Required." }}");
+                    return BadRequest(new { result = 0, resultmessage = $"{propName} is Required." });
+                }  
+            };
+
+            // Check if sig is invalid
+            if (helpers.GenerateSig(trxMessage) != trxMessage.Sig)
             {
-                _log.Debug($"Response body: {new { result = 0, resultmessage = "PartnerRefNo is Required." }}");
-                return BadRequest(new { result = 0, resultmessage = "PartnerRefNo is Required." });
-            }
-            if (string.IsNullOrWhiteSpace(trxMessage.Sig))
-            {
-                _log.Debug($"Response body: {new { result = 0, resultmessage = "Sig is Required." }}");
-                return BadRequest(new { result = 0, resultmessage = "Sig is Required." });
-            }
-            if (string.IsNullOrWhiteSpace(trxMessage.PartnerPassword))
-            {
-                _log.Debug($"Response body: {new { result = 0, resultmessage = "PartnerPassword is Required." }}");
-                return BadRequest(new { result = 0, resultmessage = "PartnerPassword is Required." });
-            }
-            if (trxMessage.TotalAmount == null)
-            {
-                _log.Debug($"Response body: {new { result = 0, resultmessage = "TotalAmount is Required." }}");
-                return BadRequest(new { result = 0, resultmessage = "TotalAmount is Required." });
+                _log.Debug($"Response body: {new { result = 0, resultmessage = "Access Denied!, Sig is invalid" }}");
+                return BadRequest(new { result = 0, resultmessage = "Access Denied!, Sig is invalid" });
             }
 
             // Check if the total amount matches the sum of all item prices
@@ -101,6 +98,12 @@ namespace testDotNetApp.Controllers
             var requestTime = DateTime.Parse(DateTime.Now.ToString()).ToUniversalTime();
             if (trxMessage.Timestamp != null)
             {
+                DateTime timestamp;
+                if (!DateTime.TryParseExact(trxMessage.Timestamp, "dd MMM yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out timestamp))
+                {
+                    _log.Debug($"Response body: {new { result = 0, resultmessage = "Invalid Timestamp." }}");
+                    return Ok(new { result = 0, resultmessage = "Invalid Timestamp." });
+                }
                 requestTime = DateTime.Parse(trxMessage.Timestamp).ToUniversalTime();
             }
             if (requestTime < serverTime.AddMinutes(-5) || requestTime > serverTime.AddMinutes(5))
@@ -111,20 +114,6 @@ namespace testDotNetApp.Controllers
 
             _log.Debug($"Response body: {new { result = 1, resultmessage = "Request data is valid." }}");
             return Ok(new { result = 1, resultmessage = "Request data is valid." });
-        }
-
-        private bool IsPartnerAllowed(string partnerKey, string partnerPassword)
-        {
-            // Check if partner key and password are correct
-            if ((partnerKey == "FAKEGOOGLE" && partnerPassword == "FAKEPASSWORD1234") ||
-                (partnerKey == "FAKEPEOPLE" && partnerPassword == "FAKEPASSWORD4578"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }
